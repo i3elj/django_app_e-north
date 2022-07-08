@@ -1,0 +1,44 @@
+<style>
+.box {
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+}
+.wrapper {
+  display: flex;
+}
+</style>
+
+<h3>Update {{ student.name }} grades</h3>
+
+<form method="POST" action="">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" name="Update Grades" value="Update Grades"/></br>
+  {% for grade in grades %}
+    <div class="wrapper">
+      <div class="box">
+        <span><strong>Subject</strong></span>: {{grade.subject}}
+      </div>
+      <div class="box">
+        <span><strong>I</strong></span>: {{grade.grade_one}}
+      </div>
+      <div class="box">
+        <span><strong>II</strong></span>: {{grade.grade_two}}
+      </div>
+      <div class="box">
+        <span><strong>III</strong></span>: {{grade.grade_three}} 
+      </div>
+      <div class="box">
+        <span><strong>Average</strong></span>: {{grade.average}}
+      </div>
+    </div>
+    </br>
+  {% endfor %}
+</form>
+<form method="POST" action="update_grade">
+  {% csrf_token %}
+  <input type="submit" name="update grade" value="Update Grade">
+</form>
+
+<button><a href="{% url 'app:index' %}">Go back to main page</a></button>

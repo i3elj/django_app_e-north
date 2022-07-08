@@ -1,0 +1,29 @@
+<style>
+.confirm_box {
+  display: flex;
+  align-items: center;
+}
+.confirm_box > form {
+  margin: 0px;
+}
+.confirm_box > form > input {
+  cursor: pointer;
+}
+.confirm_box > button {
+  cursor: pointer;
+}
+.confirm_box > button > a {
+  color: black;
+  text-decoration: none;
+}
+</style>
+
+<h3>Are you sure you want to delete "{{ student.name }}" ?</h3>
+<p>every data will be deleted...</p>
+<div class="confirm_box">
+  <button><a href="{% url 'app:index' %}">No</a></button>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <input type="submit" name="yes" value="Yes">
+  </form>
+</div>

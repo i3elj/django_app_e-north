@@ -1,0 +1,15 @@
+<h3>Students</h3>
+
+<form method="POST" action="/">
+  {% csrf_token %}
+  {{form}}
+  <input type="submit" name="Create new student" value="Create a new Student"/>
+</form>
+
+{% for student in students %}
+  <button><a href="{% url 'app:delete_student' student.id %}">Delete</a></button>
+  <button><a href="{% url 'app:update_students_name' student.id %}">Update Name</a></button>
+  <button><a href="{% url 'app:update_students_grades' student.id %}">Grades</a></button>
+  <span>{{student.name}}</span>
+  <br>
+{% endfor %}

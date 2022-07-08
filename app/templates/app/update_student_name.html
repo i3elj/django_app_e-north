@@ -1,0 +1,9 @@
+<h3>Update {{ student.name }}</h3>
+
+<form method="POST" action="">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" name="Update Name" value="Update Student"/></br>
+</form>
+
+<button><a href="{% url 'app:index' %}">Go back to main page</a></button>
