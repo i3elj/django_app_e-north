@@ -3,7 +3,12 @@ from django.forms import ModelForm
 
 from app.models import *
 
-class StudentCreationForm(forms.ModelForm):
+class StudentCreationForm(forms.Form, forms.ModelForm):
+    born_at = forms.DateTimeField(
+        label="Birthday:",
+        input_formats=['%d/%m/%Y'],
+        initial="30/12/1999"
+    )
     class Meta:
         model = Student
         fields = '__all__'
@@ -17,4 +22,5 @@ class GradeForm(forms.ModelForm):
             'grade_one',
             'grade_two',
             'grade_three',
+            'grade_four',
         ]
