@@ -41,28 +41,43 @@ def update_student_grade(request, pk):
             form.save()
         if grade.average == 0.0:
             grade.calculate_average()
+            grade.total_sum()
             grade.save()
         return redirect('/')
     return render(request, 'app/update_student_grade.html', context)
 
 
-def update_grade(request, pk):
+def update_grade(request, pk, sk):
     student = Student.objects.get(id=pk)
-    grade = Grade.objects.get(foreign_key=student)
-    form = GradeForm(instance=student)
+    grade = Grade.objects.get(id=sk)
+    form = GradeForm(instance=student, initial = {
+        'subject': grade.subject,
+        'grade_one': grade.grade_one,
+        'grade_two': grade.grade_two,
+        'grade_three': grade.grade_three,
+        'grade_four': grade.grade_four,
+    })
     context = { 'student': student, 'form': form }
 
     if request.method == "POST":
-        form = GradeForm(request.POST, instance=student)
+        form = GradeForm(request.POST, instance=grade)
         if form.is_valid():
+            grade.calculate_average()
+            grade.total_sum()
             form.save()
         return redirect('/')
 
     return render(request, 'app/update_grade.html', context)
 
 
-def delete_grade(request, pk):
-    context = {}
+def delete_grade(request, pk, sk):
+    student = Student.objects.get(id=pk)
+    grade = Grade.objects.get(id=sk)
+    context = { 'student': student, 'grade': grade }
+    
+    if request.method == "POST":
+        grade.delete()
+        return redirect('/')
     return render(request, 'app/delete_grade.html', context)
 
 
