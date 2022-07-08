@@ -1,0 +1,44 @@
+<style>
+html, body { height: 100%; width: 100%; }
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+a, input { font-size: 20px; }
+form { margin: 0px; padding: 0px; }
+.confirm_box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width:120px;
+}
+input {
+  background: none;
+  padding: 5px;
+  border: 1px solid green;
+  color: green;
+  cursor: pointer;
+} input:hover { background-color: green; color: white; }
+a {
+  background: none;
+  padding: 5px;
+  border: 1px solid red;
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+} a:hover { background-color: red; color: white; }
+</style>
+
+<main>
+<h2>Delete {{grade.subject}}'s grades from {{student.name}}'s history?</h2>
+<p>every data will be deleted...</p>
+<div class="confirm_box">
+  <a href="{% url 'app:update_students_grade' student.id %}">No</a>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <input type="submit" name="yes" value="Yes">
+  </form>
+</div>
+</main>

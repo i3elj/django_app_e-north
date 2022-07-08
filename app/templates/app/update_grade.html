@@ -1,1 +1,54 @@
-<h2>Update {{ grade.subject }}</h2>
+<style>
+html, body { height: 100%; width: 100%; }
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+input[type= submit] {
+  background: none;
+  color: #dd22dd;
+  border: 1px solid #dd22dd;
+  cursor: pointer;
+  transition: 200ms;
+}
+input[type= submit]:hover {
+ background-color: #dd22dd;
+ color: white;
+ border: 1px solid #dd22dd;
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.box {
+  padding: 5px;
+  margin: 5px;
+  font-size: 16px;
+  transition: 200ms;
+  height: 100%;
+}
+.return:hover {
+  background-color: blue;
+  color: white;
+}
+.return {
+  text-decoration: none;
+  color: blue;
+  border: 1px solid blue;
+}
+</style>
+
+<main>
+  <h2>Update {{ grade.subject }}</h2>
+  <form method="POST" action="">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div class="wrapper">
+    <input class="box" type="submit" name="update_grade" value="Update Grade">
+    <a class="box return" href="{% url 'app:update_students_grade' student.id %}">Return</a>
+  </div>
+  </form>
+</main>

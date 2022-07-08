@@ -1,15 +1,39 @@
-<h3>Students</h3>
+<style>
+html, body { height: 100%; width: 100%; }
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.box {
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
+  text-decoration: none;
+}
+.del { color: red; border-color: red; transition: 200ms; }
+.upd { color: #4444dd; border-color: #4444dd; transition: 200ms; }
+.gds { color: #dd22dd; border-color: #dd22dd; transition: 200ms; }
+.del:hover { color: white; background-color: red; }
+.upd:hover { color: white; background-color: #4444dd; }
+.gds:hover { color: white; background-color: #dd22dd; }
+</style>
+<main>
+  <h3>Students</h3>
 
-<form method="POST" action="/">
-  {% csrf_token %}
-  {{form}}
-  <input type="submit" name="Create new student" value="Create a new Student"/>
-</form>
+  <form method="POST" action="" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" name="Create new student" value="Create a new Student"/>
+  </form>
 
-{% for student in students %}
-  <button><a href="{% url 'app:delete_student' student.id %}">Delete</a></button>
-  <button><a href="{% url 'app:update_students_name' student.id %}">Update Name</a></button>
-  <button><a href="{% url 'app:update_students_grades' student.id %}">Grades</a></button>
-  <span>{{student.name}}</span>
-  <br>
-{% endfor %}
+  <div>
+  {% for student in students %}
+    <a class="box del" href="{% url 'app:delete_student' student.id %}">Delete</a>
+    <a class="box upd" href="{% url 'app:update_students_name' student.id %}">Update Student Info</a>
+    <a class="box gds" href="{% url 'app:update_students_grade' student.id %}">Grades</a>
+    <span>{{student.name}}</span></br></br>
+  {% endfor %}
+  </div>
+</main>

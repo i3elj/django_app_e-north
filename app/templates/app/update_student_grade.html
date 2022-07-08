@@ -1,44 +1,85 @@
 <style>
+html, body { height: 100%; width: 100%; }
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper { display: flex; margin-top: 40px; }
+input[type= submit] {
+  background: none;
+  color: #dd22dd;
+  border: 1px solid #dd22dd;
+  cursor: pointer;
+  transition: 200ms;
+}
+input[type= submit]:hover {
+ background-color: #dd22dd;
+ color: white;
+ border: 1px solid #dd22dd;
+}
 .box {
   border: 1px solid black;
   margin: 5px;
   padding: 5px;
+  text-decoration: none;
+  color: black;
+  transition: 200ms;
 }
-.wrapper {
-  display: flex;
+.edit:hover { background-color: green; color: white; }
+.edit {
+  text-decoration: none;
+  border-color: green;
+  color: green;
+  transition: 200ms;
 }
+.delete:hover { background-color: red; color: white; }
+.delete {
+  text-decoration: none;
+  border-color: red;
+  color: red;
+  transition: 200ms;
+}
+.return:hover { color: white; background-color: black; }
 </style>
 
-<h3>Update {{ student.name }} grades</h3>
+<main>
+  <h3>Update {{student.name}}'s grades</h3>
 
-<form method="POST" action="">
-  {% csrf_token %}
-  {{ form }}
-  <input type="submit" name="Update Grades" value="Update Grades"/></br>
-  {% for grade in grades %}
-    <div class="wrapper">
-      <div class="box">
-        <span><strong>Subject</strong></span>: {{grade.subject}}
+  <form method="POST" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" name="Update Grades" value="Add New Grade"/></br>
+    {% for grade in grades %}
+      <div class="wrapper">
+        <div class="box">
+          <span><strong>Subject</strong></span>: {{grade.subject}}
+        </div>
+        <div class="box">
+          <span><strong>I</strong></span>: {{grade.grade_one}}
+        </div>
+        <div class="box">
+          <span><strong>II</strong></span>: {{grade.grade_two}}
+        </div>
+        <div class="box">
+          <span><strong>III</strong></span>: {{grade.grade_three}} 
+        </div>
+        <div class="box">
+          <span><strong>IV</strong></span>: {{grade.grade_four}} 
+        </div>
+        <div class="box">
+          <span><strong>Total Sum</strong></span>: {{grade.sum}} 
+        </div>
+        <div class="box">
+          <span><strong>Average</strong></span>: {{grade.average}}
+        </div>
+        <a class="box edit" href="{% url 'app:update_grade' student.id grade.id%}">Edit</a>
+        <a class="box delete" href="{% url 'app:delete_grade' student.id grade.id%}">Delete</a>
       </div>
-      <div class="box">
-        <span><strong>I</strong></span>: {{grade.grade_one}}
-      </div>
-      <div class="box">
-        <span><strong>II</strong></span>: {{grade.grade_two}}
-      </div>
-      <div class="box">
-        <span><strong>III</strong></span>: {{grade.grade_three}} 
-      </div>
-      <div class="box">
-        <span><strong>Average</strong></span>: {{grade.average}}
-      </div>
-    </div>
-    </br>
-  {% endfor %}
-</form>
-<form method="POST" action="update_grade">
-  {% csrf_token %}
-  <input type="submit" name="update grade" value="Update Grade">
-</form>
+      </br>
+    {% endfor %}
+  </form>
 
-<button><a href="{% url 'app:index' %}">Go back to main page</a></button>
+  <a class="box return" href="{% url 'app:index' %}">Go back to main page</a>
+</main>
