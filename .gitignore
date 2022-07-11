@@ -1,4 +1,4 @@
-env/
+#env/
 app/__pycache__/
 django_app_e_north/__pycache__/
 app/migrations/__pycache__/
