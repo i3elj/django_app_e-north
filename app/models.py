@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Student(models.Model):
     name = models.CharField(max_length=180)
     born_at = models.DateField('born at', null=True, blank=True)
@@ -18,42 +19,18 @@ class Grade(models.Model):
     grade_four: float = models.FloatField(default=0.0)
     sum: float = models.FloatField(default=0.0)
     average: float = models.FloatField(default=0.0)
+    traits: [str] = [subject, grade_one, grade_two,
+                     grade_three, grade_four, average]
 
     def calculate_average(self) -> float:
-        self.average = round((self.grade_one + self.grade_two + self.grade_three + self.grade_four) / 4, 2)
+        self.average = round((self.grade_one + self.grade_two +
+                              self.grade_three + self.grade_four) / 4, 2)
         return self.average
-    
-    
+
     def total_sum(self) -> float:
-        self.sum = (self.grade_one + self.grade_two + self.grade_three + self.grade_four)
+        self.sum = (self.grade_one + self.grade_two + self.grade_three
+                    + self.grade_four)
         return self.sum
-    
-    
-    def traits(self):
-        traits_list = [
-            self.subject,
-            self.grade_one,
-            self.grade_two,
-            self.grade_three,
-            self.grade_four,
-            self.average
-        ]
-        return traits_list
-    
 
     def __str__(self) -> str:
-        traits: str = ""
-        traits_list = [
-            self.subject,
-            self.grade_one,
-            self.grade_two,
-            self.grade_three,
-            self.grade_four,
-            self.average
-        ]
-        for i in range(len(traits_list)):
-            if i == 0:
-                traits += (str(traits_list[i]))
-            else:
-                traits += ", " + (str(traits_list[i]))
-        return traits
+        return ", ".join(self.traits)
